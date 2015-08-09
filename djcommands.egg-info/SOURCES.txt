@@ -1,0 +1,16 @@
+MANIFEST.in
+README.rst
+setup.py
+djcmd/__init__.py
+djcmd/admin.py
+djcmd/models.py
+djcmd/tests.py
+djcmd/views.py
+djcmd/management/commands/__init__.py
+djcmd/management/commands/__init__.pyc
+djcmd/management/commands/tstcmd.py
+djcmd/management/commands/tstcmd.pyc
+djcommands.egg-info/PKG-INFO
+djcommands.egg-info/SOURCES.txt
+djcommands.egg-info/dependency_links.txt
+djcommands.egg-info/top_level.txt
