@@ -29,6 +29,13 @@ def extract_sha256_hash(in_str):
     if not len(matches): return None
     return matches[0]
 
+def extract_cache_hash(in_str):
+    cache_hash_split = in_str.split('/')
+    if not(len(cache_hash_split)): return None
+    matches = re.compile('[A-Fa-f0-9]{32}').findall(cache_hash_split[-1])
+    if not len(matches): return None
+    return matches[0]
+
 def s3_hash_bucket_and_keys():
     print 'downloading image hash keys from S3...'
     conn = S3Connection(AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY)
