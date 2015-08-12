@@ -17,7 +17,7 @@ class Command(BaseCommand):
 
         for hash_image_model in S3_HASH_MODELS:
             for image_obj in hash_image_model.objects.all():
-                for thumb in image_obj.s3_hash_thumbs():
+                for thumb in image_obj.hash_thumbs():
                     thumb_hash = str(thumb).split('.')[0].split('/')[-1]
                     if not(len(thumb_hash.strip())): continue
                     print thumb_hash,

@@ -17,19 +17,23 @@ class Command(BaseCommand):
 
         hashes_in_use = []
         for hash_image_model in S3_HASH_MODELS:
+            print ; print hash_image_model
             for field in hash_image_model._meta.fields:
                 if not field.__class__ == S3HashImageField: continue
                 field_name = field.__repr__()
                 field_name = field_name[field_name.find(':') + 1:].replace('>','').strip()
+                print hash_image_model.objects.count()
                 for obj in hash_image_model.objects.all():
                     obj_hash = extract_sha256_hash(obj.__getattribute__(field_name).__repr__())
                     if obj_hash: hashes_in_use.append(obj_hash)
+        print len(hashes_in_use), 'hashes in use'
 
         thumbnails_in_use = []
         for hash_image_model in S3_HASH_MODELS:
             for image_obj in hash_image_model.objects.all():
-                for thumb in image_obj.s3_hash_thumbs():
+                for thumb in image_obj.hash_thumbs():
                     thumbnails_in_use.append(str(thumb).split('.')[0].split('/')[-1])
+        print len(thumbnails_in_use), 'thumbnails in use'
 
         bucket, keys, cache_keys = s3_hash_bucket_and_keys()
 

@@ -53,3 +53,14 @@ def s3_hash_list():
         if extracted_hash: matches.append(extracted_hash)
     return matches
 
+def s3_cache_urls(obj):
+    ret_dict = {}
+    for thumb in obj.s3_hash_strings():
+        exec_str = 'ret_dict["' + thumb + '"] = "' + settings.AWS_S3_ROOT + '" + str(obj.' + thumb + ')'
+        exec(exec_str)
+    return ret_dict
+
+def s3_hash_thumbs(obj):
+    ret_list = []
+    for thumb in obj.s3_hash_strings(): exec("ret_list.append(obj." + thumb + ")")
+    return ret_list
