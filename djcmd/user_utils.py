@@ -2,15 +2,15 @@ from django.conf import settings
 
 def get_user_model():
     user_model_text = settings.AUTH_USER_MODEL
-    if user_model_text == 'auth.User': 
+    if user_model_text == 'auth.User':
         from django.contrib.auth.models import User
         return User
-    if user_model_text == 'wa_user.WAUser':
-        from wa_user.models import WAUser
-        return WAUser
+    if user_model_text == 'user.R2SUser':
+        from user.models import R2SUser
+        return R2SUser
     return None
 
-def find_user(identifier, find_many=False, partial_match=False, param_list=['id', 'email', 'name']):
+def find_user(identifier, find_many=False, partial_match=False, param_list=['id', 'email', 'name', 'username']):
     model = get_user_model()
     users = []
     for param in param_list:

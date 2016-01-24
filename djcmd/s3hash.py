@@ -13,10 +13,13 @@ img_kwargs = {}
 scopes = ['xs', 'sm', 'md', 'lg']
 for size in map(lambda scope: 'size_' + scope, scopes):
     for qual in map(lambda scope: 'qual_' + scope, scopes):
-        for ratio in ['aspect', 'square']:
+        for ratio in ['aspect', 'square', 'movies']:
             name = size + '_' + qual + '_' + ratio
+            processor = ResizeToFit(height=settings.IMG[size])
+            if ratio=='square': processor = ResizeToFill(settings.IMG[size], settings.IMG[size])
+            if ratio=='movies' : processor = ResizeToFill(settings.IMG[size], int(settings.IMG[size]/1.5))
             img_kwargs[name] = {
-                'processors':[ResizeToFill(settings.IMG[size], settings.IMG[size])] if ratio=='square' else [ResizeToFit(height=settings.IMG[size])],
+                'processors': [processor],
                 'format':'JPEG',
                 'options':{'quality': settings.IMG[qual]}
             }
